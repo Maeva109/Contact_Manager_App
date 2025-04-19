@@ -1,0 +1,137 @@
+<!-- src/index.html -->
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestionnaire de Contacts</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<script defer src="bundle.js"></script></head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Gestionnaire de Contacts</h1>
+            <div class="search-box">
+                <input type="text" id="search-input" placeholder="Rechercher un contact...">
+                <button id="search-button"><i class="fas fa-search"></i></button>
+            </div>
+        </header>
+        
+        <main>
+            <div class="sidebar">
+                <div class="filter-section">
+                    <h3>Filtrer par catégorie</h3>
+                    <ul id="categories-list">
+                        <li data-category="all" class="active">Tous</li>
+                        <!-- Categories will be added dynamically -->
+                    </ul>
+                </div>
+                <button id="add-contact-button" class="btn-primary">
+                    <i class="fas fa-plus"></i> Nouveau Contact
+                </button>
+            </div>
+            
+            <div class="content">
+                <div class="contacts-list-container">
+                    <h2>Mes Contacts <span id="contact-count">(0)</span></h2>
+                    <div id="contacts-list" class="contacts-list">
+                        <!-- Contacts will be added dynamically -->
+                    </div>
+                </div>
+                
+                <div id="contact-details" class="contact-details">
+                    <!-- Contact details will be shown here -->
+                    <div class="empty-state">
+                        <i class="fas fa-user-circle"></i>
+                        <p>Sélectionnez un contact pour voir les détails</p>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    
+    <!-- Modal for adding/editing contacts -->
+    <div id="contact-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modal-title">Ajouter un Contact</h3>
+                <span class="close-modal">&times;</span>
+            </div>
+            <div class="modal-body">
+                <form id="contact-form">
+                    <input type="hidden" id="contact-id">
+                    
+                    <div class="form-group">
+                        <label for="prenom">Prénom*</label>
+                        <input type="text" id="prenom" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="nom">Nom*</label>
+                        <input type="text" id="nom" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email">Email*</label>
+                        <input type="email" id="email" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="telephone">Téléphone*</label>
+                        <input type="tel" id="telephone" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="adresse">Adresse</label>
+                        <input type="text" id="adresse">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="categorie">Catégorie*</label>
+                        <select id="categorie" required>
+                            <option value="">Sélectionner une catégorie</option>
+                            <option value="Famille">Famille</option>
+                            <option value="Amis">Amis</option>
+                            <option value="Travail">Travail</option>
+                            <option value="Autres">Autres</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="notes">Notes</label>
+                        <textarea id="notes"></textarea>
+                    </div>
+                    
+                    <div id="form-errors" class="error-messages"></div>
+                    
+                    <div class="form-actions">
+                        <button type="submit" class="btn-enregistrer">Enregistrer</button>
+                        <button type="button" class="btn-annuler">Annuler</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Confirmation Modal -->
+    <div id="confirm-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Confirmation</h3>
+                <span class="close-confirm-modal">&times;</span>
+            </div>
+            <div class="modal-body">
+                <p id="confirm-message">Êtes-vous sûr de vouloir supprimer ce contact?</p>
+                <div class="form-actions">
+                    <button type="button" id="confirm-cancel" class="btn-secondary">Annuler</button>
+                    <button type="button" id="confirm-yes" class="btn-danger">Supprimer</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Toast notifications -->
+    <div id="toast-container" class="toast-container"></div>
+
+</body>
+</html>

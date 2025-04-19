@@ -115,6 +115,7 @@ export class App {
       
       const initials = contact.prenom.charAt(0) + contact.nom.charAt(0);
       
+      // Corrected innerHTML
       contactElement.innerHTML = `
         <div class="contact-avatar">${initials.toUpperCase()}</div>
         <div class="contact-info">
@@ -122,7 +123,6 @@ export class App {
           <div class="contact-email">${contact.email}</div>
         </div>
         <div class="contact-category">${contact.categorie}</div>
-        // src/app.ts (continued)
       `;
       
       contactElement.addEventListener('click', () => {
