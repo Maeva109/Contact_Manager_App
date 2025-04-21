@@ -324,7 +324,7 @@
   
   /* Modal */
   .modal {
-    display: none;
+    display: none; /* Hidden by default */
     position: fixed;
     top: 0;
     left: 0;
@@ -337,7 +337,7 @@
   }
   
   .modal.show {
-    display: flex;
+    display: flex; /* Show the modal when the "show" class is added */
   }
   
   .modal-content {
@@ -460,6 +460,7 @@
   .error-messages {
     color: var(--danger);
     margin-top: 10px;
+    font-size: 14px;
   }
   
   /* Toast Notifications */
@@ -528,4 +529,12 @@
     .content {
       flex-direction: column;
     }
+  }
+
+  .form-header {
+    font-size: 20px;
+    font-weight: bold;
+    color: var(--primary-color);
+    margin-bottom: 20px;
+    text-align: center;
   }

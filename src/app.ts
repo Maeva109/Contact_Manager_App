@@ -83,6 +83,32 @@ export class App {
       event.preventDefault();
       this.handleFormSubmit();
     });
+
+    document.querySelector('.btn-annuler')?.addEventListener('click', () => {
+      const contactModal = document.getElementById('contact-modal');
+      if (contactModal) {
+        contactModal.classList.remove('show'); // Assuming "show" class makes the modal visible
+        contactModal.style.display = 'none'; // Alternatively, hide the modal with CSS
+      }
+    });
+
+    // Open "Ajouter un Contact" modal
+    document.getElementById('add-contact-button')?.addEventListener('click', () => {
+      const contactModal = document.getElementById('contact-modal');
+      if (contactModal) {
+        contactModal.classList.add('show'); // Add the "show" class to display the modal
+        contactModal.style.display = 'flex'; // Ensure the modal is visible
+      }
+    });
+
+    // Close "Ajouter un Contact" modal when clicking "Annuler"
+    document.querySelector('.btn-annuler')?.addEventListener('click', () => {
+      const contactModal = document.getElementById('contact-modal');
+      if (contactModal) {
+        contactModal.classList.remove('show'); // Remove the "show" class
+        contactModal.style.display = 'none'; // Hide the modal
+      }
+    });
   }
 
   private renderContactsList(searchTerm: string = ''): void {
@@ -357,6 +383,34 @@ export class App {
         errorsElement.appendChild(errorElement);
       });
     }
+  }
+
+  private ajouterContact(contact: Contact): void {
+    // Check if the phone number already exists
+    const existingContact = this.contactService.obtenirTousContacts().find(c => c.telephone === contact.telephone);
+
+    if (existingContact) {
+      // Show an error message
+      const formErrors = document.getElementById('form-errors');
+      if (formErrors) {
+        formErrors.textContent = 'Un contact avec ce numéro de téléphone existe déjà.';
+      }
+      return; // Stop further execution
+    }
+
+    // If no duplicate is found, proceed to add the contact
+    this.contactService.ajouterContact(contact);
+
+    // Clear the form and close the modal
+    this.contactForm.reset();
+    const contactModal = document.getElementById('contact-modal');
+    if (contactModal) {
+      contactModal.classList.remove('show');
+      contactModal.style.display = 'none';
+    }
+
+    // Re-render the contact list
+    this.renderContactsList();
   }
 
   private openModal(modal: HTMLElement): void {
